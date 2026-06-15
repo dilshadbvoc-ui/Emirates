@@ -605,7 +605,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                 >
                   <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["14"].title}</h2>
                   <p className="text-sm text-[#6B7280] mb-6">{questions["14"].description}</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                       { id: 'new', title: questions["14"].options.new.title, description: questions["14"].options.new.description },
                       { id: 'renew', title: questions["14"].options.renew.title, description: questions["14"].options.renew.description }
@@ -636,7 +636,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                 >
                   <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["11"].title}</h2>
                   <p className="text-sm text-[#6B7280] mb-6">{questions["11"].description}</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                       { id: 'employee', title: questions["11"].options.employee.title, description: questions["11"].options.employee.description },
                       { id: 'investor', title: questions["11"].options.investor.title, description: questions["11"].options.investor.description }
@@ -667,7 +667,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                 >
                   <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["5"].title}</h2>
                   <p className="text-sm text-[#6B7280] mb-6">{questions["5"].description}</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                       { id: 'inside', title: questions["5"].options.inside.title, description: questions["5"].options.inside.description },
                       { id: 'outside', title: questions["5"].options.outside.title, description: questions["5"].options.outside.description }
@@ -726,7 +726,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                 >
                   <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["3"].title}</h2>
                   <p className="text-sm text-[#6B7280] mb-6">{questions["3"].description}</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                       { id: 'no', title: questions["3"].options.no.title, description: questions["3"].options.no.description },
                       { id: 'yes', title: questions["3"].options.yes.title, description: questions["3"].options.yes.description }
@@ -891,7 +891,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                 >
                   <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["16"].title}</h2>
                   <p className="text-sm text-[#6B7280] mb-6">{questions["16"].description}</p>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                       { id: 'no', title: questions["16"].options.no.title, description: questions["16"].options.no.description },
                       { id: 'yes', title: questions["16"].options.yes.title, description: questions["16"].options.yes.description }

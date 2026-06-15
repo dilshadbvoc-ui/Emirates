@@ -171,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* Eligibility Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-20 bg-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <SectionBadge number="1" text="Check if you qualify" gold />
@@ -202,7 +202,7 @@ export default function Home() {
       </section>
 
       {/* Process Guide Section */}
-      <section id="pane-new" className="py-20 bg-[#F5F5F5]">
+      <section id="pane-new" className="py-12 sm:py-20 bg-[#F5F5F5]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <SectionBadge number="2" text="Do-it-yourself guide" />
@@ -264,7 +264,7 @@ export default function Home() {
       </section>
 
       {/* Cost Calculator CTA */}
-      <section id="calculator" className="py-20 bg-white">
+      <section id="calculator" className="py-12 sm:py-20 bg-white">
         <div className="max-w-[600px] mx-auto px-4 sm:px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <SectionBadge number="3" text="What it costs" gold />
@@ -282,7 +282,7 @@ export default function Home() {
       </section>
 
       {/* Service Comparison */}
-      <section className="py-20 bg-[#F5F5F5]">
+      <section className="py-12 sm:py-20 bg-[#F5F5F5]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <SectionBadge number="4" text="Your choice" />
@@ -321,7 +321,7 @@ export default function Home() {
       <BlogSection />
 
       {/* FAQ */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-20 bg-white">
         <div className="max-w-[800px] mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <SectionBadge number="6" text="Still wondering?" gold />

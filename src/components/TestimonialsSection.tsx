@@ -5,7 +5,7 @@ import GoogleReviews from './GoogleReviews';
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-20 bg-white">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <SectionBadge number="5" text="Real people" gold />
         <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] mb-3">

@@ -178,7 +178,9 @@ export default function Header() {
             rel="noopener noreferrer"
             className="w-10 h-10 rounded-full bg-[#25D366] hover:bg-[#128C7E] flex items-center justify-center transition-colors"
           >
-            <MessageCircle size={20} className="text-white" fill="white" />
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+              <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.335 4.97L2 22l5.164-1.354a9.953 9.953 0 0 0 4.843 1.251h.004c5.507 0 9.99-4.478 9.99-9.984 0-2.669-1.037-5.176-2.922-7.062C17.182 3.038 14.676 2 12.012 2zm5.836 14.199c-.32.899-1.545 1.64-2.122 1.748-.577.107-1.127.151-3.263-.732-2.73-1.127-4.514-3.905-4.65-4.085-.137-.18-1.118-1.487-1.118-2.836 0-1.35.703-2.013.953-2.277.25-.263.541-.33.722-.33h.519c.162 0 .38-.06.593.45.22.53.754 1.838.82 1.973.067.135.111.293.023.473-.089.18-.135.293-.267.45-.131.156-.277.346-.395.464-.131.132-.268.277-.116.537.152.26.674 1.109 1.442 1.794.992.884 1.826 1.157 2.086 1.287.26.13.41.108.56-.063.15-.17.637-.743.807-1.001.17-.257.341-.21.577-.123.237.087 1.499.707 1.758.837.26.13.433.195.496.305.063.11.063.637-.257 1.536z" />
+            </svg>
           </a>
           <button className="hidden sm:flex w-10 h-10 rounded-full hover:bg-gray-100 items-center justify-center transition-colors">
             <Globe size={20} className="text-[#4B5563]" />
@@ -196,7 +198,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
+        <div className="md:hidden fixed inset-x-4 top-[76px] bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-3xl z-45 max-h-[calc(100vh-100px)] overflow-y-auto">
           <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => (
               <button
@@ -275,7 +277,7 @@ export default function Header() {
       {/* Mega Menu Dropdown */}
       {megaMenuOpen && (
         <div className="fixed top-[84px] left-4 right-4 md:left-auto md:right-auto md:max-w-[1200px] md:w-[calc(100vw-32px)] md:mx-auto bg-white/95 backdrop-blur-xl border border-gray-100/80 shadow-2xl rounded-3xl z-40 max-h-[calc(100vh-100px)] overflow-y-auto inset-x-0 mx-auto">
-          <div className="max-w-[1200px] mx-auto px-6 py-8">
+          <div className="max-w-[1200px] mx-auto px-4 py-6 sm:px-6 sm:py-8">
             {/* Banner: Visa Cost Calculator */}
             <div 
               onClick={() => {
