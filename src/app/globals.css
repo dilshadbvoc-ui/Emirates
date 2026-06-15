@@ -1,0 +1,212 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..600&display=swap');
+
+:root {
+  /* UAE Flag Official Colors */
+  /* Red: #EF3340 (Pantone 186 C) | Green: #009B3A (Pantone 354 C) | White | Black */
+
+  --background: 0 0% 100%;
+  --foreground: 220 13% 9%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 13% 9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 13% 9%;
+
+  /* Primary = UAE Red */
+  --primary: 355 84% 56%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Secondary = soft UAE green tint */
+  --secondary: 143 55% 97%;
+  --secondary-foreground: 143 100% 30%;
+
+  --muted: 220 9% 96%;
+  --muted-foreground: 220 9% 46%;
+
+  /* Accent = UAE Green */
+  --accent: 143 100% 30%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 355 84% 56%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 91%;
+  --input: 220 13% 82%;
+  --ring: 143 100% 30%;
+  --radius: 0.625rem;
+
+  /* Brand tokens */
+  --brand-primary: #EF3340;
+  --brand-deep: #C8102E;
+  --brand-primary-hover: #D62B35;
+  --brand-soft: #FDE8EA;
+  --brand-soft-2: #FFF5F6;
+
+  --brand-green: #009B3A;
+  --brand-green-hover: #007A2F;
+  --brand-green-deep: #006B2E;
+  --brand-green-soft: #E6F7ED;
+
+  --brand-gold: #C08A2D;
+
+  /* Ink / text */
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --text-faint: #9AA3B2;
+
+  /* Surfaces */
+  --bg-white: #FFFFFF;
+  --bg-warm: #F0FAF4;
+  --bg-surface: #F7F8FA;
+  --bg-surface-2: #F1F3F6;
+  --bg-gray: #F5F5F5;
+
+  /* Borders */
+  --border-light: #E7E9EE;
+  --border-soft: #EEF1F5;
+  --border-medium: #D0D0D0;
+
+  /* Status */
+  --success: #009B3A;
+  --error: #EF3340;
+
+  /* Dark footer */
+  --dark: #0E1422;
+
+  /* WhatsApp */
+  --wa: #25D366;
+  --wa-deep: #128C3E;
+}
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* UAE Flag Official Colors — direct tokens */
+  --color-uae-red: #EF3340;
+  --color-uae-red-deep: #C8102E;
+  --color-uae-red-hover: #D62B35;
+  --color-uae-red-soft: #FDE8EA;
+  --color-uae-red-soft-2: #FFF5F6;
+
+  --color-uae-green: #009B3A;
+  --color-uae-green-hover: #007A2F;
+  --color-uae-green-deep: #006B2E;
+  --color-uae-green-soft: #E6F7ED;
+
+  --color-uae-gold: #C08A2D;
+  --color-uae-ink: #111827;
+  --color-uae-dark: #0E1422;
+  --color-uae-surface: #F7F8FA;
+
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-xs: calc(var(--radius) - 6px);
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+  @keyframes caret-blink {
+    0%, 70%, 100% { opacity: 1; }
+    20%, 50% { opacity: 0; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-optical-sizing: auto;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+::selection {
+  background-color: #EF3340;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2.5px solid #EF3340;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Brand Red Utilities */
+.text-brand { color: var(--brand-primary); }
+.text-brand-hover { color: var(--brand-primary-hover); }
+.bg-brand { background-color: var(--brand-primary); }
+.bg-brand-hover { background-color: var(--brand-primary-hover); }
+.bg-brand-soft { background-color: var(--brand-soft); }
+.border-brand { border-color: var(--brand-primary); }
+
+/* Brand Green (UAE Flag) Utilities */
+.text-green { color: var(--brand-green); }
+.text-green-hover { color: var(--brand-green-hover); }
+.bg-green { background-color: var(--brand-green); }
+.bg-green-hover { background-color: var(--brand-green-hover); }
+.bg-green-soft { background-color: var(--brand-green-soft); }
+.border-green { border-color: var(--brand-green); }
+
+/* Gold Utilities */
+.text-gold { color: var(--brand-gold); }
+.bg-gold { background-color: var(--brand-gold); }
+
+/* Text shades */
+.text-ink { color: var(--text-primary); }
+.text-brand-secondary { color: var(--text-secondary); }
+.text-brand-muted { color: var(--text-muted); }
+
+/* Surfaces */
+.bg-warm { background-color: var(--bg-warm); }
+.bg-surface { background-color: var(--bg-surface); }
+.bg-gray-section { background-color: var(--bg-gray); }
+
+/* Borders */
+.border-light { border-color: var(--border-light); }
+.border-soft { border-color: var(--border-soft); }
+
+/* Shadow helpers matching reference site */
+.shadow-brand { box-shadow: 0 18px 40px -14px rgba(239,51,64,.5); }
+.shadow-green { box-shadow: 0 14px 30px -12px rgba(0,155,58,.4); }
