@@ -1,5 +1,3 @@
-import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
@@ -14,6 +12,10 @@ const nextConfig: NextConfig = {
         port: '3000',
       },
     ],
+  },
+  // Ensure Turbopack uses correct project root
+  turbopack: {
+    root: __dirname,
   },
 };
 
