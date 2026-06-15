@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Calculator, Menu, X, Globe, MessageCircle } from 'lucide-react';
+import { Calculator, Menu, X, Globe, MessageCircle, LayoutGrid, ChevronRight, Star, Building, Baby, Sparkles, Award, FileText, FileSignature, Briefcase, Info, Mail } from 'lucide-react';
 
 const whatsappNumber = '773690993';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const pathname = usePathname();
 
@@ -52,6 +53,7 @@ export default function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setMegaMenuOpen(false);
   }, [pathname]);
 
   const scrollToSection = (id: string, tab?: 'new' | 'renew') => {
@@ -75,21 +77,35 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
+          ? 'bg-white/80 backdrop-blur-lg border-b border-gray-100/50 shadow-xs'
+          : 'bg-transparent border-b border-transparent'
         }`}
     >
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <rect x="4" y="2" width="24" height="28" rx="3" fill="#EF3340" />
-            <path d="M12 8h8M12 13h8M12 18h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-            <path d="M22 2v4a2 2 0 002 2h4" stroke="white" strokeWidth="1.5" fill="none" />
-            <path d="M20 22c0-3.3 2.7-6 6-6v6h-6z" fill="white" opacity="0.3" />
-          </svg>
-          <span className="text-lg font-bold text-[#111827]">EmiratesVisa<span className="text-[#EF3340]">.ae</span></span>
-        </Link>
+        {/* Logo & Grid Menu */}
+        <div className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <rect x="4" y="2" width="24" height="28" rx="3" fill="#EF3340" />
+              <path d="M12 8h8M12 13h8M12 18h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M22 2v4a2 2 0 002 2h4" stroke="white" strokeWidth="1.5" fill="none" />
+              <path d="M20 22c0-3.3 2.7-6 6-6v6h-6z" fill="white" opacity="0.3" />
+            </svg>
+            <span className="text-lg font-bold text-[#111827]">EmiratesVisa<span className="text-[#EF3340]">.ae</span></span>
+          </Link>
+
+          <button
+            onClick={() => setMegaMenuOpen(!megaMenuOpen)}
+            className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all shadow-sm cursor-pointer ${
+              megaMenuOpen 
+                ? 'bg-[#EF3340] border-[#EF3340] text-white' 
+                : 'bg-white border-gray-200 text-[#4B5563] hover:bg-gray-50'
+            }`}
+            title="Explore Services"
+          >
+            <LayoutGrid size={18} />
+          </button>
+        </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
@@ -232,6 +248,163 @@ export default function Header() {
                 Login
               </Link>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Mega Menu Dropdown */}
+      {megaMenuOpen && (
+        <div className="absolute top-[72px] left-0 right-0 bg-white border-t border-gray-100 shadow-2xl z-40 max-h-[calc(100vh-72px)] overflow-y-auto">
+          <div className="max-w-[1200px] mx-auto px-6 py-8">
+            {/* Banner: Visa Cost Calculator */}
+            <div 
+              onClick={() => {
+                setMegaMenuOpen(false);
+                if (!isHome) {
+                  window.location.href = '/#calculator';
+                } else {
+                  scrollToSection('calculator');
+                }
+              }}
+              className="bg-gradient-to-r from-[#EF3340] to-[#D62B35] rounded-2xl p-5 mb-8 flex items-center justify-between cursor-pointer hover:shadow-lg transition-all shadow-md group"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-white">
+                  <Calculator size={24} />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold text-lg flex items-center gap-1.5">
+                    Visa Cost Calculator
+                  </h3>
+                  <p className="text-white/80 text-sm">Instant, itemised estimate</p>
+                </div>
+              </div>
+              <ChevronRight className="text-white group-hover:translate-x-1 transition-transform" size={24} />
+            </div>
+
+            {/* Main Content Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+              {/* Left Column: Residence Visas & Lists (Span 3) */}
+              <div className="lg:col-span-3 space-y-8">
+                {/* Residence Visas */}
+                <div>
+                  <h4 className="text-xs font-bold text-gray-450 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#EF3340]" /> Residence Visas
+                  </h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {[
+                      { title: "Golden Visa", icon: <Star size={20} className="text-[#EF3340]" fill="#EF3340" />, href: "/golden-visa", bg: "bg-red-50/50" },
+                      { title: "Property Visa", icon: <Building size={20} className="text-[#EF3340]" />, href: "/property-visa", bg: "bg-red-50/50" },
+                      { title: "Newborn Visa", icon: <Baby size={20} className="text-[#EF3340]" />, href: "/new-born", bg: "bg-red-50/50" },
+                      { title: "Maid Visa", icon: <Sparkles size={20} className="text-[#EF3340]" />, href: "/maid-visa", bg: "bg-red-50/50" }
+                    ].map((visa) => (
+                      <Link
+                        key={visa.title}
+                        href={visa.href}
+                        onClick={() => setMegaMenuOpen(false)}
+                        className="flex flex-col items-center justify-center p-5 rounded-2xl border border-gray-100 hover:border-[#EF3340]/30 hover:bg-[#EF3340]/5 transition-all text-center group bg-white hover-shadow-premium"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-[#EF3340]/5 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                          {visa.icon}
+                        </div>
+                        <span className="font-bold text-sm text-[#111827]">{visa.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Lists: Documents & Property */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  {/* Documents & Legal */}
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-450 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#EF3340]" /> Documents & Legal
+                    </h4>
+                    <div className="space-y-3">
+                      {[
+                        { title: "Attestation", icon: <Award size={16} className="text-[#EF3340]" />, href: "/attestation" },
+                        { title: "Translation", icon: <FileText size={16} className="text-[#EF3340]" />, href: "/legal-translation" },
+                        { title: "Power of Attorney", icon: <FileSignature size={16} className="text-[#EF3340]" />, href: "/poa" }
+                      ].map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          onClick={() => setMegaMenuOpen(false)}
+                          className="flex items-center justify-between p-3.5 bg-gray-50 hover:bg-red-50/5 border border-gray-100 hover:border-[#EF3340]/20 rounded-xl transition-all group"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm text-gray-600">
+                              {item.icon}
+                            </div>
+                            <span className="font-semibold text-sm text-gray-700">{item.title}</span>
+                          </div>
+                          <ChevronRight size={16} className="text-gray-400 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Property & Support */}
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-455 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#EF3340]" /> Property & Support
+                    </h4>
+                    <div className="space-y-3">
+                      {[
+                        { title: "DLD Trustee Services", icon: <Building size={16} className="text-[#EF3340]" />, href: "/dld-trustee" },
+                        { title: "Revaluation", icon: <Award size={16} className="text-[#EF3340]" />, href: "/dld-trustee-services" },
+                        { title: "Medical & EID", icon: <Briefcase size={16} className="text-[#EF3340]" />, href: "/contact-us" }
+                      ].map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          onClick={() => setMegaMenuOpen(false)}
+                          className="flex items-center justify-between p-3.5 bg-gray-50 hover:bg-red-50/5 border border-gray-100 hover:border-[#EF3340]/20 rounded-xl transition-all group"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm text-gray-600">
+                              {item.icon}
+                            </div>
+                            <span className="font-semibold text-sm text-gray-700">{item.title}</span>
+                          </div>
+                          <ChevronRight size={16} className="text-gray-400 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Company (Span 1) */}
+              <div className="lg:border-l lg:border-gray-100 lg:pl-8">
+                <h4 className="text-xs font-bold text-gray-450 uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#EF3340]" /> Company
+                </h4>
+                <div className="space-y-3">
+                  {[
+                    { title: "Articles", icon: <FileText size={16} className="text-[#EF3340]" />, href: "/articles" },
+                    { title: "About Us", icon: <Info size={16} className="text-[#EF3340]" />, href: "/about-us" },
+                    { title: "Career", icon: <Briefcase size={16} className="text-[#EF3340]" />, href: "/contact-us" },
+                    { title: "Contact Us", icon: <Mail size={16} className="text-[#EF3340]" />, href: "/contact-us" }
+                  ].map((item) => (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      onClick={() => setMegaMenuOpen(false)}
+                      className="flex items-center justify-between p-3.5 bg-gray-50 hover:bg-red-50/5 border border-gray-100 hover:border-[#EF3340]/20 rounded-xl transition-all group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm text-gray-600">
+                          {item.icon}
+                        </div>
+                        <span className="font-semibold text-sm text-gray-700">{item.title}</span>
+                      </div>
+                      <ChevronRight size={16} className="text-gray-400 group-hover:translate-x-0.5 transition-transform" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

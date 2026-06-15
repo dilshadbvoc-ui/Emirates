@@ -19,7 +19,11 @@ export default function FAQSection({ faqs, initialCount = 5 }: Props) {
       {visibleFaqs.map((faq, index) => (
         <div
           key={index}
-          className="border border-gray-200 rounded-xl overflow-hidden"
+          className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+            openIndex === index 
+              ? 'border-[#EF3340]/40 bg-red-50/10 shadow-xs' 
+              : 'border-gray-100 hover:border-gray-250'
+          }`}
         >
           <button
             onClick={() => setOpenIndex(openIndex === index ? null : index)}

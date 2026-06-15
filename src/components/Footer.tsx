@@ -14,18 +14,6 @@ const footerLinks = {
     { label: 'Articles', href: '/articles' },
     { label: 'Contact', href: '/contact-us' },
   ],
-  services: [
-    { label: 'Visa Cost Calculator', href: '/#calculator' },
-    { label: 'Golden Visa', href: '/golden-visa' },
-    { label: 'Property Visa', href: '/property-visa' },
-    { label: 'Newborn Visa', href: '/new-born' },
-    { label: 'Maid Visa', href: '/maid-visa' },
-    { label: 'Attestation', href: '/attestation' },
-    { label: 'Legal Translation', href: '/legal-translation' },
-    { label: 'Power of Attorney', href: '/poa' },
-    { label: 'Wills & Testament', href: '/wills' },
-    { label: 'DLD Trustee Services', href: '/dld-trustee' },
-  ],
 };
 
 const socialLinks = [
@@ -103,18 +91,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services & Contact */}
+          {/* Contact Us */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-white">Services</h4>
-            <ul className="space-y-2.5 mb-6">
-              {footerLinks.services.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <h4 className="text-sm font-semibold mb-4 text-white">Contact Us</h4>
             <div className="space-y-2.5">
               <a href="tel:773690993" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
                 <Phone size={14} /> 800 DOCS

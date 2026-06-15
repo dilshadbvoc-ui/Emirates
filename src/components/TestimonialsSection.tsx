@@ -33,7 +33,7 @@ export default function TestimonialsSection() {
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="bg-white border border-gray-100 rounded-2xl p-6 hover-shadow-premium"
             >
               <div className="flex gap-1 mb-3">
                 {[...Array(t.rating)].map((_, j) => (

@@ -91,7 +91,10 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#FDE8EA] via-[#FFF5F6] to-white py-12 sm:py-20">
+      <section className="relative bg-gradient-to-b from-[#FDE8EA] via-[#FFF5F6] to-white py-12 sm:py-20 overflow-hidden">
+        {/* Ambient Glows */}
+        <div className="ambient-glow bg-[#EF3340]/10 w-[350px] h-[350px] -top-10 -left-10" />
+        <div className="ambient-glow bg-[#009B3A]/5 w-[300px] h-[300px] bottom-10 -right-10" />
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left Column */}
@@ -127,12 +130,12 @@ export default function Home() {
             {/* Right Column */}
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
               <div className="relative pb-10 sm:pb-0">
-                <div className="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-[#FDE8EA] to-white aspect-[4/3] relative">
+                <div className="rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-[#FDE8EA] to-white aspect-[4/3] relative ring-1 ring-black/5 border border-white/60">
                   <img src="/images/hero-family.jpg" alt="Happy family on Dubai balcony with Burj Khalifa view" className="w-full h-full object-cover" />
                   <div className="absolute top-4 right-4 bg-[#009B3A] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">Live gov fees</div>
                 </div>
                 {/* Floating card — absolute on sm+, below image on mobile */}
-                <div className="sm:absolute sm:-bottom-6 sm:left-4 bg-white rounded-xl shadow-lg border border-gray-100 w-full sm:w-[300px] overflow-hidden mt-4 sm:mt-0">
+                <div className="sm:absolute sm:-bottom-6 sm:left-4 bg-white rounded-2xl border border-gray-100/80 w-full sm:w-[300px] overflow-hidden mt-4 sm:mt-0 hover-shadow-premium">
                   <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-100">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
@@ -182,7 +185,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {eligibilityCards.map((card) => (
               <motion.div key={card.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                className="bg-white rounded-2xl p-6 border border-gray-100 hover-shadow-premium">
                 <div className="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-[#009B3A] mb-4">{iconMap[card.icon]}</div>
                 <h3 className="text-lg font-semibold text-[#111827] mb-1">{card.title}</h3>
                 <p className="text-sm font-bold text-[#009B3A] mb-2">{card.salary}</p>
@@ -286,7 +289,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] mb-10">Do it yourself, or <span className="text-[#EF3340]">we handle it</span>.</h2>
           </motion.div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 hover-shadow-premium">
               <h3 className="text-xl font-semibold text-[#111827] mb-1">Path A</h3>
               <h4 className="text-lg font-bold text-[#111827] mb-4">Do it yourself</h4>
               <p className="text-sm text-[#4B5563] mb-6">You pay only the government fees, but you handle everything.</p>
@@ -297,7 +300,7 @@ export default function Home() {
               </ul>
               <a href="https://uaepass.ae/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#EF3340] hover:text-[#D62B35] transition-colors">Start with UAE Pass &rarr;</a>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl p-6 sm:p-8 border-l-4 border-[#EF3340] shadow-md relative">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl p-6 sm:p-8 border-l-4 border-[#EF3340] hover-shadow-premium relative">
               <div className="absolute top-4 right-4 bg-[#EF3340] text-white text-xs font-semibold px-3 py-1 rounded-full">Recommended</div>
               <h3 className="text-xl font-semibold text-[#111827] mb-1">Path B</h3>
               <h4 className="text-lg font-bold text-[#111827] mb-4">We handle it for you</h4>
