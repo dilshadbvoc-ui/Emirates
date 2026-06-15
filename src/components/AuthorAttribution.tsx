@@ -6,7 +6,7 @@ export default function AuthorAttribution() {
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 text-center">
         <Quote size={24} className="text-[#009B3A] mx-auto mb-4" />
         <p className="text-sm text-[#4B5563] mb-3">
-          Written by <strong className="text-[#111827]">Razeeb Abdulla</strong>, CEO &middot;{' '}
+          Written by <strong className="text-[#111827]">Thameem Abdulla</strong>, CEO &middot;{' '}
           <span className="font-semibold text-[#111827]">Emirates<span className="text-[#009B3A]">Visa</span><span className="text-[#EF3340]">.ae</span></span> &middot;{' '}
           <strong>800</strong> <span className="text-[#6B7280]">DOCS LLC SOC</span>
         </p>

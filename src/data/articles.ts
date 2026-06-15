@@ -17,7 +17,7 @@ export const articles: Article[] = [
     excerpt: 'A clear, up-to-date walkthrough of UAE family visa eligibility, the documents you need, and each step of the 2026 application process.',
     category: 'UAE Family Visa',
     categorySlug: 'family-visa',
-    author: 'Razeeb Abdulla',
+    author: 'Thameem Abdulla',
     date: '8 Jun 2026',
     content: `Applying for a UAE family visa in 2026 is straightforward if you understand the requirements and follow the process step by step. This guide covers everything you need to know.
 
@@ -66,7 +66,7 @@ Use our free visa calculator to get an exact, itemized breakdown of all governme
     excerpt: 'The Dubai Golden Visa for property owners is now simpler than ever — three documents, no bank NOC for mortgaged properties, husband-wife portfolio combination, and no age limit on sponsoring unmarried children.',
     category: 'Property Visa',
     categorySlug: 'property-visa',
-    author: 'Razeeb Abdulla',
+    author: 'Thameem Abdulla',
     date: '9 Jun 2026',
   },
   {
@@ -75,7 +75,7 @@ Use our free visa calculator to get an exact, itemized breakdown of all governme
     excerpt: 'The bank NOC was the biggest source of delay on mortgaged-property visa applications — and from our desk this week, it\'s no longer being asked for.',
     category: 'Property Visa',
     categorySlug: 'property-visa',
-    author: 'Razeeb Abdulla',
+    author: 'Thameem Abdulla',
     date: '8 Jun 2026',
   },
   {
@@ -84,7 +84,7 @@ Use our free visa calculator to get an exact, itemized breakdown of all governme
     excerpt: 'Lost your Emirates ID in the UAE? Here\'s how to apply for a duplicate through ICP or a typing centre — no police report needed in normal cases.',
     category: 'Emirates ID',
     categorySlug: 'emirates-id',
-    author: 'Razeeb Abdulla',
+    author: 'Thameem Abdulla',
     date: '10 Jun 2026',
   },
 ];

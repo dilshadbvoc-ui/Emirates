@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import {
   FallbackFees,
+  defaultQuestions,
   calculateEstimate,
   type CalculatorState,
   type SponsorVisaType,
@@ -85,6 +86,7 @@ function durKey(d: string): 'investor' | 'retirement' | 'golden' | null {
 
 export default function VisaCalculator({ isOpen, onClose }: Props) {
   const [fees, setFees] = useState<typeof FallbackFees>(FallbackFees);
+  const [questions, setQuestions] = useState<typeof defaultQuestions>(defaultQuestions);
   const [state, setState] = useState<CalculatorState>({
     look: null,
     visa: null,
@@ -106,108 +108,120 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
   const [showCompare, setShowCompare] = useState<boolean>(false);
   const [shareStatus, setShareStatus] = useState<string>('Copy Estimate Link');
 
-  // Load sheets data on mount
+  // Load config data on mount
   useEffect(() => {
-    fetch(SHEETS_URL, { cache: 'no-store' })
+    fetch('/api/calculator/config')
       .then(res => {
         if (!res.ok) throw new Error("HTTP error");
-        return res.text();
+        return res.json();
       })
-      .then(csvText => {
-        const rows = parseCSV(csvText);
-        if (rows.length < 2) return;
-        const h = rows[0].map(x => x.trim().toLowerCase());
-        const iVisa = h.findIndex(x => x.indexOf("visa type") > -1);
-        const iDur = h.findIndex(x => x.indexOf("duration") > -1);
-        const iItem = h.findIndex(x => x.indexOf("item") > -1);
-        const iAmt = h.findIndex(x => x.indexOf("amount") > -1);
-        const iAmer = h.findIndex(x => x.indexOf("amer") > -1);
-
-        const iv = iVisa < 0 ? 1 : iVisa;
-        const idur = iDur < 0 ? 2 : iDur;
-        const iit = iItem < 0 ? 3 : iItem;
-        const iamt = iAmt < 0 ? 4 : iAmt;
-        const iame = iAmer < 0 ? 5 : iAmer;
-
-        const out = JSON.parse(JSON.stringify(FallbackFees)) as typeof FallbackFees;
-
-        for (let r = 1; r < rows.length; r++) {
-          const c = rows[r];
-          if (!c || c.length < 2) continue;
-          const vtype = (c[iv] || "").trim();
-          const item = (c[iit] || "").trim();
-          const amt = parseFloat((c[iamt] || "").toString().replace(/[^0-9.]/g, ""));
-          if (!item || isNaN(amt)) continue;
-          let amer = parseFloat((c[iame] || "").toString().replace(/[^0-9.]/g, ""));
-          if (isNaN(amer)) amer = 0;
-
-          if (vtype.toLowerCase().indexOf("all visa") > -1) {
-            if (/medical/i.test(item) && /normal/i.test(item)) { out.medical.normal = amt; out.amer.medNormal = amer; }
-            else if (/medical/i.test(item) && /vip/i.test(item)) { out.medical.vip = amt; out.amer.medVip = amer; }
-            else if (/family\s*file/i.test(item)) { out.familyFile = amt; out.amer.familyFile = amer; }
-            continue;
-          }
-
-          if (/family\s*visa/i.test(vtype)) {
-            if (/entry\s*permit\s*inside/i.test(item)) { out.fv.entryInside = amt; out.amer.fvEntryInside = amer; }
-            else if (/entry\s*permit\s*outside/i.test(item)) { out.fv.entryOutside = amt; out.amer.fvEntryOutside = amer; }
-            else if (/change\s*status/i.test(item)) { out.fv.changeStatus = amt; out.amer.fvChangeStatus = amer; }
-            else if (/visa\s*st[ao]mping/i.test(item)) { out.fv.stamp = amt; out.amer.fvStamp = amer; }
-            else if (/emirates\s*id/i.test(item)) { out.fv.eid = amt; out.amer.fvEid = amer; }
-            continue;
-          }
-
-          if (/new\s*born|newborn/i.test(vtype)) {
-            if (/birth\s*cert/i.test(item) && /del[ei]ver/i.test(item)) { out.newborn.bcDelivery = amt; }
-            else if (/mofa/i.test(item) && /del[ei]ver/i.test(item)) { out.newborn.mofaDelivery = amt; }
-            else if (/birth\s*cert/i.test(item) && /arabic/i.test(item)) { out.newborn.bcArabic = amt; }
-            else if (/birth\s*cert/i.test(item) && /engl/i.test(item)) { out.newborn.bcEnglish = amt; }
-            else if (/mofa/i.test(item)) { out.newborn.mofa = amt; }
-            else if (/residency\s*issuance/i.test(item)) { out.newborn.residency = amt; }
-            else if (/golden/i.test(item) && /stamp/i.test(item)) { out.newborn.goldenStamp = amt; }
-            continue;
-          }
-
-          const vkSheet = durKey(c[idur]);
-          if (!vkSheet) continue;
-
-          if (vkSheet === "investor") {
-            if (/entry\s*permit\s*inside/i.test(item)) { out.entryInside = amt; continue; }
-            if (/entry\s*permit\s*outside/i.test(item)) { out.entryOutside = amt; continue; }
-            if (/family/i.test(item) && /st[ao]mping/i.test(item)) { out.stampFamily = amt; continue; }
-          }
-
-          if (/emirates\s*id/i.test(item)) {
-            out.visa[vkSheet].eid = amt;
-            if (vkSheet === "investor") out.amer.eidInvestor = amer;
-            continue;
-          }
-
-          out.visa[vkSheet].sponsorItems.push({ name: item, amount: amt });
-          if (vkSheet === "investor" && /change\s*status/i.test(item)) { out.changeStatus = amt; }
-        }
-
-        // Rebuild dynamic arrays
-        ["golden", "retirement"].forEach(vkKey => {
-          const key = vkKey as 'golden' | 'retirement';
-          out.visa[key].depItems = out.visa[key].sponsorItems.filter(it => !/dld\s*&?\s*admin/i.test(it.name));
-        });
-
-        ["gvcompany", "gvmanager", "gvdeposit"].forEach(vkKey => {
-          const key = vkKey as 'gvcompany' | 'gvmanager' | 'gvdeposit';
-          out.visa[key].eid = out.visa.golden.eid;
-          out.visa[key].sponsorItems = out.visa.golden.sponsorItems.filter(it => !/dld\s*&?\s*admin/i.test(it.name));
-          out.visa[key].depItems = out.visa.golden.depItems;
-        });
-
-        out.visa.famdep.eid = out.visa.investor.eid;
-        if (!out.fv.eid) out.fv.eid = out.visa.investor.eid;
-        if (!out.amer.fvEid) out.amer.fvEid = out.amer.eidInvestor;
-        out.visa.famvisa.eid = out.fv.eid;
-
-        setFees(out);
+      .then(data => {
+        if (data.fees) setFees(data.fees);
+        if (data.questions) setQuestions(data.questions);
       })
-      .catch(err => console.log("Failed to load spreadsheet, using fallbacks:", err));
+      .catch(err => {
+        console.log("Failed to load DB config, falling back to sheets:", err);
+        fetch(SHEETS_URL, { cache: 'no-store' })
+          .then(res => {
+            if (!res.ok) throw new Error("HTTP error");
+            return res.text();
+          })
+          .then(csvText => {
+            const rows = parseCSV(csvText);
+            if (rows.length < 2) return;
+            const h = rows[0].map(x => x.trim().toLowerCase());
+            const iVisa = h.findIndex(x => x.indexOf("visa type") > -1);
+            const iDur = h.findIndex(x => x.indexOf("duration") > -1);
+            const iItem = h.findIndex(x => x.indexOf("item") > -1);
+            const iAmt = h.findIndex(x => x.indexOf("amount") > -1);
+            const iAmer = h.findIndex(x => x.indexOf("amer") > -1);
+
+            const iv = iVisa < 0 ? 1 : iVisa;
+            const idur = iDur < 0 ? 2 : iDur;
+            const iit = iItem < 0 ? 3 : iItem;
+            const iamt = iAmt < 0 ? 4 : iAmt;
+            const iame = iAmer < 0 ? 5 : iAmer;
+
+            const out = JSON.parse(JSON.stringify(FallbackFees)) as typeof FallbackFees;
+
+            for (let r = 1; r < rows.length; r++) {
+              const c = rows[r];
+              if (!c || c.length < 2) continue;
+              const vtype = (c[iv] || "").trim();
+              const item = (c[iit] || "").trim();
+              const amt = parseFloat((c[iamt] || "").toString().replace(/[^0-9.]/g, ""));
+              if (!item || isNaN(amt)) continue;
+              let amer = parseFloat((c[iame] || "").toString().replace(/[^0-9.]/g, ""));
+              if (isNaN(amer)) amer = 0;
+
+              if (vtype.toLowerCase().indexOf("all visa") > -1) {
+                if (/medical/i.test(item) && /normal/i.test(item)) { out.medical.normal = amt; out.amer.medNormal = amer; }
+                else if (/medical/i.test(item) && /vip/i.test(item)) { out.medical.vip = amt; out.amer.medVip = amer; }
+                else if (/family\s*file/i.test(item)) { out.familyFile = amt; out.amer.familyFile = amer; }
+                continue;
+              }
+
+              if (/family\s*visa/i.test(vtype)) {
+                if (/entry\s*permit\s*inside/i.test(item)) { out.fv.entryInside = amt; out.amer.fvEntryInside = amer; }
+                else if (/entry\s*permit\s*outside/i.test(item)) { out.fv.entryOutside = amt; out.amer.fvEntryOutside = amer; }
+                else if (/change\s*status/i.test(item)) { out.fv.changeStatus = amt; out.amer.fvChangeStatus = amer; }
+                else if (/visa\s*st[ao]mping/i.test(item)) { out.fv.stamp = amt; out.amer.fvStamp = amer; }
+                else if (/emirates\s*id/i.test(item)) { out.fv.eid = amt; out.amer.fvEid = amer; }
+                continue;
+              }
+
+              if (/new\s*born|newborn/i.test(vtype)) {
+                if (/birth\s*cert/i.test(item) && /del[ei]ver/i.test(item)) { out.newborn.bcDelivery = amt; }
+                else if (/mofa/i.test(item) && /del[ei]ver/i.test(item)) { out.newborn.mofaDelivery = amt; }
+                else if (/birth\s*cert/i.test(item) && /arabic/i.test(item)) { out.newborn.bcArabic = amt; }
+                else if (/birth\s*cert/i.test(item) && /engl/i.test(item)) { out.newborn.bcEnglish = amt; }
+                else if (/mofa/i.test(item)) { out.newborn.mofa = amt; }
+                else if (/residency\s*issuance/i.test(item)) { out.newborn.residency = amt; }
+                else if (/golden/i.test(item) && /stamp/i.test(item)) { out.newborn.goldenStamp = amt; }
+                continue;
+              }
+
+              const vkSheet = durKey(c[idur]);
+              if (!vkSheet) continue;
+
+              if (vkSheet === "investor") {
+                if (/entry\s*permit\s*inside/i.test(item)) { out.entryInside = amt; continue; }
+                if (/entry\s*permit\s*outside/i.test(item)) { out.entryOutside = amt; continue; }
+                if (/family/i.test(item) && /st[ao]mping/i.test(item)) { out.stampFamily = amt; continue; }
+              }
+
+              if (/emirates\s*id/i.test(item)) {
+                out.visa[vkSheet].eid = amt;
+                if (vkSheet === "investor") out.amer.eidInvestor = amer;
+                continue;
+              }
+
+              out.visa[vkSheet].sponsorItems.push({ name: item, amount: amt });
+              if (vkSheet === "investor" && /change\s*status/i.test(item)) { out.changeStatus = amt; }
+            }
+
+            // Rebuild dynamic arrays
+            ["golden", "retirement"].forEach(vkKey => {
+              const key = vkKey as 'golden' | 'retirement';
+              out.visa[key].depItems = out.visa[key].sponsorItems.filter(it => !/dld\s*&?\s*admin/i.test(it.name));
+            });
+
+            ["gvcompany", "gvmanager", "gvdeposit"].forEach(vkKey => {
+              const key = vkKey as 'gvcompany' | 'gvmanager' | 'gvdeposit';
+              out.visa[key].eid = out.visa.golden.eid;
+              out.visa[key].sponsorItems = out.visa.golden.sponsorItems.filter(it => !/dld\s*&?\s*admin/i.test(it.name));
+              out.visa[key].depItems = out.visa.golden.depItems;
+            });
+
+            out.visa.famdep.eid = out.visa.investor.eid;
+            if (!out.fv.eid) out.fv.eid = out.visa.investor.eid;
+            if (!out.amer.fvEid) out.amer.fvEid = out.amer.eidInvestor;
+            out.visa.famvisa.eid = out.fv.eid;
+
+            setFees(out);
+          })
+          .catch(err => console.log("Failed to load spreadsheet, using fallbacks:", err));
+      });
   }, []);
 
   const reset = () => {
@@ -424,14 +438,14 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">What visa are you looking for?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Choose a category to see the applicable government fees.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["1"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["1"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'family', title: 'Family / Dependent Visa', description: 'Sponsor a family member on your visa', icon: 'users' },
-                      { id: 'golden', title: 'Golden Visa', description: '10-Year residency categories', icon: 'star' },
-                      { id: 'property', title: 'Property Visa', description: 'Visas obtained through property', icon: 'building' },
-                      { id: 'newborn', title: 'Newborn Visa', description: 'Add a newborn baby to the family file', icon: 'baby' },
+                      { id: 'family', title: questions["1"].options.family.title, description: questions["1"].options.family.description, icon: 'users' },
+                      { id: 'golden', title: questions["1"].options.golden.title, description: questions["1"].options.golden.description, icon: 'star' },
+                      { id: 'property', title: questions["1"].options.property.title, description: questions["1"].options.property.description, icon: 'building' },
+                      { id: 'newborn', title: questions["1"].options.newborn.title, description: questions["1"].options.newborn.description, icon: 'baby' },
                     ].map((cat) => (
                       <button
                         key={cat.id}
@@ -470,13 +484,13 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">What is the sponsor&apos;s visa type?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Dependent fees differ based on the sponsor&apos;s current residence visa.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["8"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["8"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'twoyear', title: 'Regular 2-Year Visa', description: 'Investor / partner or employee visa holder' },
-                      { id: 'golden', title: '10-Year Golden Visa', description: 'Dependent of a Golden Visa holder' },
-                      { id: 'retirement', title: '5-Year Retirement Visa', description: 'Dependent of a Retirement Visa holder' }
+                      { id: 'twoyear', title: questions["8"].options.twoyear.title, description: questions["8"].options.twoyear.description },
+                      { id: 'golden', title: questions["8"].options.golden.title, description: questions["8"].options.golden.description },
+                      { id: 'retirement', title: questions["8"].options.retirement.title, description: questions["8"].options.retirement.description }
                     ].map((s) => (
                       <button
                         key={s.id}
@@ -499,15 +513,15 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Which Golden Visa category?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Select the appropriate 10-year residency category.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["10"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["10"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'golden', title: 'Property Owner', description: 'Property worth AED 2 million or above' },
-                      { id: 'gvcompany', title: 'Company Owner', description: 'Shareholder or owner of a UAE company' },
-                      { id: 'gvmanager', title: 'Manager / Executive', description: 'General Manager, director or skilled professional' },
-                      { id: 'gvdeposit', title: 'Fixed Deposit', description: 'Capital deposit in a UAE bank or accredited fund' },
-                      { id: 'famdep', title: 'Dependent of Golden Visa', description: 'Family member of an existing Golden Visa holder' }
+                      { id: 'golden', title: questions["10"].options.golden.title, description: questions["10"].options.golden.description },
+                      { id: 'gvcompany', title: questions["10"].options.gvcompany.title, description: questions["10"].options.gvcompany.description },
+                      { id: 'gvmanager', title: questions["10"].options.gvmanager.title, description: questions["10"].options.gvmanager.description },
+                      { id: 'gvdeposit', title: questions["10"].options.gvdeposit.title, description: questions["10"].options.gvdeposit.description },
+                      { id: 'famdep', title: questions["10"].options.famdep.title, description: questions["10"].options.famdep.description }
                     ].map((gv) => (
                       <button
                         key={gv.id}
@@ -530,14 +544,14 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Which property-based visa?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Select your residency type under property investment.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["12"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["12"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'golden', title: '10-Year Golden Visa', description: 'Property worth AED 2 million or above' },
-                      { id: 'retirement', title: '5-Year Retirement Visa', description: 'Property-based retirement residency' },
-                      { id: 'investor', title: '2-Year Investor Visa', description: 'Property investor residency' },
-                      { id: 'propdep', title: 'Dependent of Property Visa', description: 'Add family of a property-visa holder' }
+                      { id: 'golden', title: questions["12"].options.golden.title, description: questions["12"].options.golden.description },
+                      { id: 'retirement', title: questions["12"].options.retirement.title, description: questions["12"].options.retirement.description },
+                      { id: 'investor', title: questions["12"].options.investor.title, description: questions["12"].options.investor.description },
+                      { id: 'propdep', title: questions["12"].options.propdep.title, description: questions["12"].options.propdep.description }
                     ].map((pv) => (
                       <button
                         key={pv.id}
@@ -560,13 +574,13 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Which dependent?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Select your sponsor&apos;s visa category.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["17"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["17"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'golden', title: 'Dependent of Golden Visa', description: 'Family member of a 10-Year Golden Property holder' },
-                      { id: 'retirement', title: 'Dependent of Retirement Visa', description: 'Family member of a 5-Year Retirement holder' },
-                      { id: 'twoyear', title: 'Dependent of Property Investor Visa', description: 'Family member of a 2-Year Property Investor' }
+                      { id: 'golden', title: questions["17"].options.golden.title, description: questions["17"].options.golden.description },
+                      { id: 'retirement', title: questions["17"].options.retirement.title, description: questions["17"].options.retirement.description },
+                      { id: 'investor', title: questions["17"].options.investor.title, description: questions["17"].options.investor.description }
                     ].map((dp) => (
                       <button
                         key={dp.id}
@@ -589,12 +603,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Is this a new visa or a renewal?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Renewals do not require entry permit or status change fees.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["14"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["14"].description}</p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { id: 'new', title: 'New Visa', description: 'First-time application' },
-                      { id: 'renew', title: 'Renewal', description: 'Renewing existing residence' }
+                      { id: 'new', title: questions["14"].options.new.title, description: questions["14"].options.new.description },
+                      { id: 'renew', title: questions["14"].options.renew.title, description: questions["14"].options.renew.description }
                     ].map((app) => (
                       <button
                         key={app.id}
@@ -620,12 +634,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Sponsor&apos;s 2-Year visa type?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Different rates apply to employees vs investors.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["11"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["11"].description}</p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { id: 'employee', title: 'Employee Visa', description: 'Standard corporate employment' },
-                      { id: 'investor', title: 'Investor / Partner', description: 'Freezone / Mainland partner visa' }
+                      { id: 'employee', title: questions["11"].options.employee.title, description: questions["11"].options.employee.description },
+                      { id: 'investor', title: questions["11"].options.investor.title, description: questions["11"].options.investor.description }
                     ].map((ty) => (
                       <button
                         key={ty.id}
@@ -651,12 +665,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Where is the dependent currently?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Affects immigration entry permit and status adjustment rates.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["5"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["5"].description}</p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { id: 'inside', title: 'Inside UAE', description: 'In the country' },
-                      { id: 'outside', title: 'Outside UAE', description: 'Currently abroad' }
+                      { id: 'inside', title: questions["5"].options.inside.title, description: questions["5"].options.inside.description },
+                      { id: 'outside', title: questions["5"].options.outside.title, description: questions["5"].options.outside.description }
                     ].map((l) => (
                       <button
                         key={l.id}
@@ -682,12 +696,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Do you already have a family file?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Opening a family file is a one-time administrative fee.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["7"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["7"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'no', title: 'No — Open new family file', description: 'Sponsoring dependents for the first time' },
-                      { id: 'yes', title: 'Yes — Already opened', description: 'I have sponsored family members before' }
+                      { id: 'no', title: questions["7"].options.no.title, description: questions["7"].options.no.description },
+                      { id: 'yes', title: questions["7"].options.yes.title, description: questions["7"].options.yes.description }
                     ].map((ff) => (
                       <button
                         key={ff.id}
@@ -710,12 +724,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Do you want to sponsor family?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">You can bundle dependent estimates to view a combined total.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["3"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["3"].description}</p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { id: 'no', title: 'No, just me', description: 'Sponsor only' },
-                      { id: 'yes', title: 'Yes, add family', description: 'Include dependents' }
+                      { id: 'no', title: questions["3"].options.no.title, description: questions["3"].options.no.description },
+                      { id: 'yes', title: questions["3"].options.yes.title, description: questions["3"].options.yes.description }
                     ].map((opt) => (
                       <button
                         key={opt.id}
@@ -815,12 +829,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Which medical fitness test?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Required for all adult applicants (18+).</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["2"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["2"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'normal', title: 'Normal Medical', description: 'Fitness report in 24 hours', price: fees.medical.normal },
-                      { id: 'vip', title: 'VIP Medical', description: 'Fitness report in 30 minutes', price: fees.medical.vip }
+                      { id: 'normal', title: questions["2"].options.normal.title, description: questions["2"].options.normal.description, price: fees.medical.normal },
+                      { id: 'vip', title: questions["2"].options.vip.title, description: questions["2"].options.vip.description, price: fees.medical.vip }
                     ].map((med) => (
                       <button
                         key={med.id}
@@ -846,13 +860,13 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">What is the sponsor parent&apos;s visa?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Emirates ID and stamping fees correspond to the sponsor&apos;s visa category.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["15"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["15"].description}</p>
                   <div className="space-y-3">
                     {[
-                      { id: 'employee', title: '2-Year Employee Visa', description: 'Corporate employment visa holder' },
-                      { id: 'investor', title: '2-Year Partner / Investor Visa', description: 'Property investor, partner or freezone investor' },
-                      { id: 'golden', title: 'Golden Visa', description: '10-Year Golden Visa holder' }
+                      { id: 'employee', title: questions["15"].options.employee.title, description: questions["15"].options.employee.description },
+                      { id: 'investor', title: questions["15"].options.investor.title, description: questions["15"].options.investor.description },
+                      { id: 'golden', title: questions["15"].options.golden.title, description: questions["15"].options.golden.description }
                     ].map((ns) => (
                       <button
                         key={ns.id}
@@ -875,12 +889,12 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                 >
-                  <h2 className="text-2xl font-bold text-[#111827] mb-1">Birth certificate requirements?</h2>
-                  <p className="text-sm text-[#6B7280] mb-6">Arabic certificate is mandatory. English translation is optional.</p>
+                  <h2 className="text-2xl font-bold text-[#111827] mb-1">{questions["16"].title}</h2>
+                  <p className="text-sm text-[#6B7280] mb-6">{questions["16"].description}</p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
-                      { id: 'no', title: 'Arabic Only', description: 'Mandatory certificate' },
-                      { id: 'yes', title: 'Arabic + English', description: 'Bilingual document' }
+                      { id: 'no', title: questions["16"].options.no.title, description: questions["16"].options.no.description },
+                      { id: 'yes', title: questions["16"].options.yes.title, description: questions["16"].options.yes.description }
                     ].map((bc) => (
                       <button
                         key={bc.id}
