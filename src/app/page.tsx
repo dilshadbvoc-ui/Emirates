@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -49,6 +49,34 @@ const DocumentList = ({ items, label }: { items: DocumentItem[]; label: string }
 export default function Home() {
   const [activeProcessTab, setActiveProcessTab] = useState<'new' | 'renew'>('new');
   const [calculatorOpen, setCalculatorOpen] = useState(false);
+
+  useEffect(() => {
+    const handleHashAndTab = () => {
+      const hash = window.location.hash;
+      if (hash === '#pane-renew') {
+        setActiveProcessTab('renew');
+      } else if (hash === '#pane-new') {
+        setActiveProcessTab('new');
+      }
+    };
+
+    const handleCustomEvent = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail === 'new' || detail === 'renew') {
+        setActiveProcessTab(detail);
+      }
+    };
+
+    // Run on mount
+    handleHashAndTab();
+
+    window.addEventListener('hashchange', handleHashAndTab);
+    window.addEventListener('change-visa-tab', handleCustomEvent);
+    return () => {
+      window.removeEventListener('hashchange', handleHashAndTab);
+      window.removeEventListener('change-visa-tab', handleCustomEvent);
+    };
+  }, []);
 
   const openCalculator = useCallback(() => setCalculatorOpen(true), []);
   const closeCalculator = useCallback(() => setCalculatorOpen(false), []);

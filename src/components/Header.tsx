@@ -22,16 +22,20 @@ export default function Header() {
     setMobileOpen(false);
   }, [pathname]);
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
+  const scrollToSection = (id: string, tab?: 'new' | 'renew') => {
+    if (tab) {
+      window.dispatchEvent(new CustomEvent('change-visa-tab', { detail: tab }));
+    }
+    const targetId = id === 'pane-renew' ? 'pane-new' : id;
+    const el = document.getElementById(targetId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const navLinks = [
-    { label: 'New Visa', action: () => scrollToSection('pane-new'), href: '/#pane-new' },
-    { label: 'Renew Visa', action: () => scrollToSection('pane-renew'), href: '/#pane-renew' },
+    { label: 'New Visa', action: () => scrollToSection('pane-new', 'new'), href: '/#pane-new' },
+    { label: 'Renew Visa', action: () => scrollToSection('pane-renew', 'renew'), href: '/#pane-renew' },
   ];
 
   const isHome = pathname === '/';
