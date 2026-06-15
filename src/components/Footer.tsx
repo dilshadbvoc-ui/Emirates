@@ -116,7 +116,7 @@ export default function Footer() {
               ))}
             </ul>
             <div className="space-y-2.5">
-              <a href="tel:8003627" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
+              <a href="tel:773690993" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
                 <Phone size={14} /> 800 DOCS
               </a>
               <a href="mailto:info@emiratesvisa.ae" className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">

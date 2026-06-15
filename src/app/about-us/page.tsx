@@ -29,7 +29,7 @@ export default function AboutUs() {
                 <Link href="/" className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-3">
                   <Calculator size={18} /> Calculate visa cost <ArrowRight size={18} />
                 </Link>
-                <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full font-semibold transition-colors flex items-center justify-center gap-3">
+                <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full font-semibold transition-colors flex items-center justify-center gap-3">
                   <MessageCircle size={18} /> WhatsApp
                 </a>
               </div>

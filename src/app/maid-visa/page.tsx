@@ -33,7 +33,7 @@ export default function MaidVisa() {
                 Get your domestic worker&apos;s UAE residency visa processed 100% online. Skip the typing centres and let our experts handle the GDRFA and MOHRE paperwork.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-3">
+                <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-3">
                   <MessageCircle size={18} /> Get a free quote <ArrowRight size={18} />
                 </a>
                 <button onClick={() => document.getElementById('process')?.scrollIntoView({ behavior: 'smooth' })} className="px-8 py-4 border-2 border-gray-200 text-[#4B5563] hover:border-gray-300 rounded-full font-semibold transition-colors flex items-center justify-center gap-2">See the process</button>
@@ -62,7 +62,7 @@ export default function MaidVisa() {
                 <div className="mt-4 p-3 bg-red-50 rounded-lg">
                   <p className="text-xs text-[#EF3340] font-medium">100% online &middot; stamping in 5–7 working days</p>
                 </div>
-                <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="mt-4 w-full py-3 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-xl font-semibold text-sm transition-colors flex items-center justify-center gap-2">
+                <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="mt-4 w-full py-3 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-xl font-semibold text-sm transition-colors flex items-center justify-center gap-2">
                   <MessageCircle size={16} /> Get a free quote
                 </a>
               </div>

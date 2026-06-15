@@ -15,7 +15,7 @@ export default function LegalTranslation() {
 
   const openWhatsApp = () => {
     const text = encodeURIComponent("Hello! I'd like to get a quote for certified legal translation services from EmiratesVisa.ae.");
-    window.open(`https://wa.me/9718003627?text=${text}`, '_blank');
+    window.open(`https://wa.me/773690993?text=${text}`, '_blank');
   };
 
   const faqItems = [

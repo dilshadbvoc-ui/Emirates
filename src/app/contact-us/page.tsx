@@ -55,7 +55,7 @@ export default function ContactUs() {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/9718003627?text=Hi%21+I%27d+like+to+ask+a+question+about+your+visa+and+legal+services.', '_blank');
+    window.open('https://wa.me/773690993?text=Hi%21+I%27d+like+to+ask+a+question+about+your+visa+and+legal+services.', '_blank');
   };
 
   return (
@@ -86,7 +86,7 @@ export default function ContactUs() {
                 <SectionBadge text="Contact Info" gold />
                 <h3 className="text-xl font-bold text-[#111827] mt-3 mb-6">EmiratesVisa.ae Support</h3>
                 <div className="space-y-6">
-                  <a href="tel:8003627" className="flex items-center gap-4 text-[#111827] hover:text-[#009B3A] transition-colors">
+                  <a href="tel:773690993" className="flex items-center gap-4 text-[#111827] hover:text-[#009B3A] transition-colors">
                     <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-[#009B3A] shadow-sm shrink-0">
                       <Phone size={20} />
                     </div>

@@ -15,7 +15,7 @@ export default function Wills() {
 
   const openWhatsApp = () => {
     const text = encodeURIComponent("Hello! I'd like to ask about Will & Last Testament services in the UAE from EmiratesVisa.ae.");
-    window.open(`https://wa.me/9718003627?text=${text}`, '_blank');
+    window.open(`https://wa.me/773690993?text=${text}`, '_blank');
   };
 
   const faqItems = [

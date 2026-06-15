@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Calculator, Menu, X, Globe, MessageCircle } from 'lucide-react';
 
-const whatsappNumber = '9718003627';
+const whatsappNumber = '773690993';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);

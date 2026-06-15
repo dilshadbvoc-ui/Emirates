@@ -15,7 +15,7 @@ export default function PowerOfAttorney() {
 
   const openWhatsApp = () => {
     const text = encodeURIComponent("Hello! I'd like to set up a UAE Power of Attorney with EmiratesVisa.ae.");
-    window.open(`https://wa.me/9718003627?text=${text}`, '_blank');
+    window.open(`https://wa.me/773690993?text=${text}`, '_blank');
   };
 
   const faqItems = [

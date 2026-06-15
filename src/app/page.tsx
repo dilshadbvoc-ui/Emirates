@@ -226,7 +226,7 @@ export default function Home() {
 
           <div className="sticky bottom-4 mt-8 p-4 bg-[#EF3340]/95 backdrop-blur-sm rounded-xl flex flex-col sm:flex-row gap-3 justify-between items-center">
             <button onClick={openCalculator} className="px-6 py-2.5 bg-white text-[#EF3340] rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors flex items-center gap-2"><Calculator size={16} /> Calculate {activeProcessTab === 'new' ? 'new' : 'renewal'} visa cost</button>
-            <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-white/20 text-white rounded-full font-medium text-sm hover:bg-white/30 transition-colors">Ask a question</a>
+            <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-white/20 text-white rounded-full font-medium text-sm hover:bg-white/30 transition-colors">Ask a question</a>
           </div>
         </div>
       </section>
@@ -278,7 +278,7 @@ export default function Home() {
                   <li key={item} className="flex items-start gap-2.5"><Check size={16} className="text-green-600 shrink-0 mt-0.5" /><span className="text-sm text-[#4B5563]">{item}</span></li>
                 ))}
               </ul>
-              <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full text-sm font-semibold transition-colors inline-flex items-center gap-2"><MessageCircle size={16} /> Start on WhatsApp</a>
+              <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full text-sm font-semibold transition-colors inline-flex items-center gap-2"><MessageCircle size={16} /> Start on WhatsApp</a>
             </motion.div>
           </div>
         </div>

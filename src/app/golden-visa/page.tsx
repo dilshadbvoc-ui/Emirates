@@ -137,7 +137,7 @@ export default function GoldenVisa() {
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="sticky bottom-4 mt-8 p-4 bg-[#EF3340]/95 backdrop-blur-sm rounded-xl flex flex-col sm:flex-row gap-3 justify-between items-center">
             <button onClick={openCalculator} className="px-6 py-2.5 bg-white text-[#EF3340] rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors flex items-center gap-2"><Calculator size={16} /> Calculate Golden Visa cost</button>
-            <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-white/20 text-white rounded-full font-medium text-sm hover:bg-white/30 transition-colors">Ask a question</a>
+            <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 bg-white/20 text-white rounded-full font-medium text-sm hover:bg-white/30 transition-colors">Ask a question</a>
           </motion.div>
         </div>
       </section>

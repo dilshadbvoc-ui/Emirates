@@ -22,7 +22,7 @@ export default function FinalCTA({ onCalculator }: Props) {
             <Calculator size={18} /> Calculate Visa Cost
           </button>
           <a
-            href="https://wa.me/9718003627"
+            href="https://wa.me/773690993"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-3.5 border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white rounded-full font-semibold transition-colors flex items-center justify-center gap-2"

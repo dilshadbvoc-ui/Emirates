@@ -352,7 +352,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
   const result = calculateEstimate(state, fees);
 
   const handleWhatsAppCTA = () => {
-    const link = `https://wa.me/9718003627?text=${encodeURIComponent(result.whatsappMsg)}`;
+    const link = `https://wa.me/773690993?text=${encodeURIComponent(result.whatsappMsg)}`;
     window.open(link, '_blank');
   };
 

@@ -15,7 +15,7 @@ export default function DLDTrustee() {
 
   const openWhatsApp = () => {
     const text = encodeURIComponent("Hello! I'd like to check my property documents for a DLD Trustee transaction with EmiratesVisa.ae.");
-    window.open(`https://wa.me/9718003627?text=${text}`, '_blank');
+    window.open(`https://wa.me/773690993?text=${text}`, '_blank');
   };
 
   const faqItems = [

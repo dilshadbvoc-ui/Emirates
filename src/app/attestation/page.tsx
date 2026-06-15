@@ -34,7 +34,7 @@ export default function Attestation() {
                   </div>
                 ))}
               </div>
-              <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md inline-flex items-center gap-3">
+              <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md inline-flex items-center gap-3">
                 <MessageCircle size={18} /> Get a free quote <ArrowRight size={18} />
               </a>
             </motion.div>
@@ -97,7 +97,7 @@ export default function Attestation() {
                     </div>
                   ))}
                 </div>
-                <a href="https://wa.me/9718003627" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#EF3340] hover:text-[#D62B35] transition-colors">Get a quote <ArrowRight size={14} /></a>
+                <a href="https://wa.me/773690993" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#EF3340] hover:text-[#D62B35] transition-colors">Get a quote <ArrowRight size={14} /></a>
               </motion.div>
             ))}
           </div>
