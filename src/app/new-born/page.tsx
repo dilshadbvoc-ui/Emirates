@@ -24,7 +24,7 @@ export default function NewbornVisa() {
                 <span className="w-2 h-2 rounded-full bg-[#EF3340]" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Newborn Visa Service</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
                 New baby? Add them to your <span className="text-[#EF3340]">family file</span>.
               </h1>
               <p className="text-base text-[#4B5563] mb-6 max-w-md">

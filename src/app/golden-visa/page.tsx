@@ -37,13 +37,13 @@ export default function GoldenVisa() {
                 <span className="w-2 h-2 rounded-full bg-[#EF3340]" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Free UAE Golden Visa Tool</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
                 The 10-Year UAE <span className="text-[#009B3A]">Golden Visa</span> — five ways to qualify.
               </h1>
               <p className="text-base text-[#4B5563] mb-6 max-w-md">
                 Property, company, salary, or deposit — long-term residency for you and your whole family, with the exact government fees made clear.
               </p>
-              <button onClick={openCalculator} className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center gap-3 mb-4">
+              <button onClick={openCalculator} className="w-full sm:w-auto px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-3 mb-4">
                 <Calculator size={18} /> Calculate Visa Cost <ArrowRight size={18} />
               </button>
               <div className="flex flex-wrap gap-2 mb-6">
@@ -60,37 +60,39 @@ export default function GoldenVisa() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-emerald-100 to-emerald-50 aspect-[4/3] relative">
-                <img src="/images/golden-visa-hero.jpg" alt="UAE Golden Visa concept with Dubai skyline" className="w-full h-full object-cover" />
-                <div className="absolute top-4 right-4 bg-[#009B3A] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">Live gov fees</div>
-              </div>
-              <div className="absolute -bottom-6 -left-4 sm:left-4 bg-white rounded-xl shadow-lg border border-gray-100 w-[280px] sm:w-[300px] overflow-hidden">
-                <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-100">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                  <span className="ml-auto text-[10px] text-[#6B7280] uppercase tracking-wider">golden visa estimator</span>
+              <div className="relative pb-10 sm:pb-0">
+                <div className="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-emerald-100 to-emerald-50 aspect-[4/3] relative">
+                  <img src="/images/golden-visa-hero.jpg" alt="UAE Golden Visa concept with Dubai skyline" className="w-full h-full object-cover" />
+                  <div className="absolute top-4 right-4 bg-[#009B3A] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">Live gov fees</div>
                 </div>
-                <div className="p-4">
-                  <p className="text-[10px] text-[#6B7280] uppercase tracking-wider mb-3">Example &middot; Company Owner</p>
-                  {[
-                    { label: 'Immigration & visa', amount: 2710 },
-                    { label: 'Medical fitness', amount: 320 },
-                    { label: 'Emirates ID', amount: 1185 },
-                  ].map((item) => (
-                    <div key={item.label} className="flex justify-between py-1.5 border-b border-gray-50 last:border-0">
-                      <span className="text-sm text-[#4B5563]">{item.label}</span>
-                      <span className="text-sm font-medium text-[#111827]">{item.amount.toLocaleString()}</span>
-                    </div>
-                  ))}
-                  <div className="flex justify-between pt-3 mt-2 border-t-2 border-[#111827]">
-                    <span className="text-sm font-semibold text-[#111827]">Government fees</span>
-                    <span className="text-lg font-bold text-[#EF3340]">AED 4,215</span>
+                <div className="sm:absolute sm:-bottom-6 sm:left-4 bg-white rounded-xl shadow-lg border border-gray-100 w-full sm:w-[300px] overflow-hidden mt-4 sm:mt-0">
+                  <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-100">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    <span className="ml-auto text-[10px] text-[#6B7280] uppercase tracking-wider">golden visa estimator</span>
                   </div>
+                  <div className="p-4">
+                    <p className="text-[10px] text-[#6B7280] uppercase tracking-wider mb-3">Example &middot; Company Owner</p>
+                    {[
+                      { label: 'Immigration & visa', amount: 2710 },
+                      { label: 'Medical fitness', amount: 320 },
+                      { label: 'Emirates ID', amount: 1185 },
+                    ].map((item) => (
+                      <div key={item.label} className="flex justify-between py-1.5 border-b border-gray-50 last:border-0">
+                        <span className="text-sm text-[#4B5563]">{item.label}</span>
+                        <span className="text-sm font-medium text-[#111827]">{item.amount.toLocaleString()}</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between pt-3 mt-2 border-t-2 border-[#111827]">
+                      <span className="text-sm font-semibold text-[#111827]">Government fees</span>
+                      <span className="text-lg font-bold text-[#EF3340]">AED 4,215</span>
+                    </div>
+                  </div>
+                  <button onClick={openCalculator} className="w-full py-2.5 bg-[#EF3340] hover:bg-[#D62B35] text-white text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+                    <Calculator size={14} /> Get my exact figure
+                  </button>
                 </div>
-                <button onClick={openCalculator} className="w-full py-2.5 bg-[#EF3340] hover:bg-[#D62B35] text-white text-sm font-semibold transition-colors flex items-center justify-center gap-2">
-                  <Calculator size={14} /> Get my exact figure
-                </button>
               </div>
             </motion.div>
           </div>

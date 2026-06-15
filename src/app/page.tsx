@@ -72,19 +72,19 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[#EF3340]" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Free UAE Family Visa Tool</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
                 Know your <span className="text-[#EF3340]">exact</span> family visa cost in under <span className="text-[#EF3340]">30s</span>.
               </h1>
               <p className="text-base text-[#4B5563] mb-6 max-w-md">
                 Itemized government fees for a new visa or a renewal — no signup, no phone number, just clear answers.
               </p>
 
-              <button onClick={openCalculator} className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center gap-3 mb-4">
+              <button onClick={openCalculator} className="w-full sm:w-auto px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-3 mb-4">
                 <Calculator size={18} /> Calculate Visa Cost <ArrowRight size={18} />
               </button>
 
               <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-8">
-                <Check size={16} className="text-green-600" />
+                <Check size={16} className="text-green-600 shrink-0" />
                 <span>Free &middot; No signup &middot; Itemized in under 30 seconds</span>
               </div>
 
@@ -98,12 +98,13 @@ export default function Home() {
 
             {/* Right Column */}
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
-              <div className="relative">
+              <div className="relative pb-10 sm:pb-0">
                 <div className="rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-[#FDE8EA] to-white aspect-[4/3] relative">
                   <img src="/images/hero-family.jpg" alt="Happy family on Dubai balcony with Burj Khalifa view" className="w-full h-full object-cover" />
                   <div className="absolute top-4 right-4 bg-[#009B3A] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">Live gov fees</div>
                 </div>
-                <div className="absolute -bottom-6 -left-4 sm:left-4 bg-white rounded-xl shadow-lg border border-gray-100 w-[280px] sm:w-[300px] overflow-hidden">
+                {/* Floating card — absolute on sm+, below image on mobile */}
+                <div className="sm:absolute sm:-bottom-6 sm:left-4 bg-white rounded-xl shadow-lg border border-gray-100 w-full sm:w-[300px] overflow-hidden mt-4 sm:mt-0">
                   <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-100">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
@@ -182,10 +183,10 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="flex gap-2 mb-8">
-            <button onClick={() => setActiveProcessTab('new')} className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeProcessTab === 'new' ? 'bg-[#EF3340] text-white' : 'bg-white text-[#4B5563] hover:bg-gray-100'}`}>New</button>
-            <button onClick={() => setActiveProcessTab('renew')} className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeProcessTab === 'renew' ? 'bg-[#EF3340] text-white' : 'bg-white text-[#4B5563] hover:bg-gray-100'}`}>Renew</button>
-            <div className="ml-4 flex items-center gap-3 text-sm text-[#6B7280]">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="flex flex-wrap gap-2 mb-8">
+            <button onClick={() => setActiveProcessTab('new')} className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeProcessTab === 'new' ? 'bg-[#EF3340] text-white' : 'bg-white text-[#4B5563] hover:bg-gray-100'}`}>New Visa</button>
+            <button onClick={() => setActiveProcessTab('renew')} className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeProcessTab === 'renew' ? 'bg-[#EF3340] text-white' : 'bg-white text-[#4B5563] hover:bg-gray-100'}`}>Renewal</button>
+            <div className="flex flex-wrap items-center gap-2 text-sm text-[#6B7280] sm:ml-2">
               <span className="font-semibold text-[#111827]">{activeProcessTab === 'new' ? 'New Family Visa' : 'Family Visa Renewal'}</span>
               <span className="bg-white px-2.5 py-1 rounded-full text-xs font-medium">{activeProcessTab === 'new' ? '8 steps' : '5 steps'}</span>
               <span className="bg-white px-2.5 py-1 rounded-full text-xs font-medium">{activeProcessTab === 'new' ? '5–10 days' : '3–5 days'}</span>

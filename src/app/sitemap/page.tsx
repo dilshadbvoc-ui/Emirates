@@ -53,7 +53,7 @@ export default function Sitemap() {
               <span className="w-2 h-2 rounded-full bg-[#EF3340]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Navigation Map</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
               Site <span className="text-[#009B3A]">Map</span>.
             </h1>
             <p className="text-base text-[#4B5563]">

@@ -53,7 +53,7 @@ export default function Articles() {
               <BookOpen size={16} className="text-[#EF3340]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">From our desk</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] mb-3">Articles <span className="text-[#EF3340]">& guides</span></h1>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] mb-3">Articles <span className="text-[#EF3340]">& guides</span></h1>
             <p className="text-[#4B5563] mb-6 max-w-xl">Everything we publish about UAE visas, Emirates ID, attestation and family documents — in one place.</p>
             <div className="flex flex-wrap gap-3 mb-8">
               <span className="flex items-center gap-1.5 text-sm text-[#4B5563] bg-white px-3 py-1.5 rounded-full border border-gray-100"><BookOpen size={14} /> {articles.length} articles</span>

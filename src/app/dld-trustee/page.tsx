@@ -35,7 +35,7 @@ export default function DLDTrustee() {
                 <span className="w-2 h-2 rounded-full bg-[#EF3340]" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Property Transfer Support</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
                 Trustee services without the <span className="text-[#009B3A]">paperwork headache</span>.
               </h1>
               <p className="text-base text-[#4B5563] mb-6 max-w-md">

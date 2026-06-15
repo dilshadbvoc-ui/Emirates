@@ -67,7 +67,7 @@ export default function ContactUs() {
               <span className="w-2 h-2 rounded-full bg-[#EF3340]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Get In Touch</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
               Contact <span className="text-[#009B3A]">Us</span>.
             </h1>
             <p className="text-base text-[#4B5563]">
@@ -177,7 +177,7 @@ export default function ContactUs() {
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
                   </div>
-                  <button type="submit" disabled={isSubmitting} className="px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] disabled:bg-gray-400 text-white rounded-full font-semibold transition-colors shadow-md flex items-center gap-2">
+                  <button type="submit" disabled={isSubmitting} className="w-full sm:w-auto px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] disabled:bg-gray-400 text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-2">
                     {isSubmitting ? 'Sending...' : 'Send Message'} <Send size={16} />
                   </button>
                 </form>
