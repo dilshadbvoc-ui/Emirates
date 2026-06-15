@@ -27,6 +27,17 @@ export default function Header() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      setIsAuthenticated(false);
+      window.dispatchEvent(new CustomEvent('auth-change'));
+      window.location.href = '/';
+    } catch (err) {
+      console.error('Logout error', err);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -111,12 +122,20 @@ export default function Header() {
             Visa Calculator
           </button>
           {isAuthenticated ? (
-            <Link
-              href="/admin"
-              className="px-4 py-2 text-sm font-medium text-[#EF3340] hover:text-[#D62B35] hover:bg-red-50 rounded-full transition-colors ml-1"
-            >
-              Admin Portal
-            </Link>
+            <>
+              <Link
+                href="/admin"
+                className="px-4 py-2 text-sm font-medium text-[#EF3340] hover:text-[#D62B35] hover:bg-red-50 rounded-full transition-colors ml-1"
+              >
+                Admin Portal
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors ml-1"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <Link
               href="/login"
@@ -186,13 +205,24 @@ export default function Header() {
               Visa Calculator
             </button>
             {isAuthenticated ? (
-              <Link
-                href="/admin"
-                onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-4 py-3 text-sm font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                Admin Portal
-              </Link>
+              <>
+                <Link
+                  href="/admin"
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors"
+                >
+                  Admin Portal
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileOpen(false);
+                  }}
+                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors mt-2"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link
                 href="/login"
