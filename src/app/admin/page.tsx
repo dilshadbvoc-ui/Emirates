@@ -201,27 +201,27 @@ export default function AdminPage() {
         )}
 
         {/* Tab Selection */}
-        <div className="flex border-b border-gray-200 mb-8 gap-4">
+        <div className="bg-gray-100 p-1.5 rounded-2xl flex inline-flex mb-8 gap-1 shadow-sm border border-gray-200/50">
           <button
             onClick={() => setActiveTab('leads')}
-            className={`pb-4 px-2 text-sm font-bold border-b-2 transition-all ${
-              activeTab === 'leads' ? 'border-[#EF3340] text-[#EF3340]' : 'border-transparent text-gray-500 hover:text-gray-800'
+            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+              activeTab === 'leads' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-850'
             }`}
           >
             Leads Submission
           </button>
           <button
             onClick={() => setActiveTab('fees')}
-            className={`pb-4 px-2 text-sm font-bold border-b-2 transition-all ${
-              activeTab === 'fees' ? 'border-[#EF3340] text-[#EF3340]' : 'border-transparent text-gray-500 hover:text-gray-800'
+            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+              activeTab === 'fees' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-855'
             }`}
           >
             Visa Charges (Fees)
           </button>
           <button
             onClick={() => setActiveTab('questions')}
-            className={`pb-4 px-2 text-sm font-bold border-b-2 transition-all ${
-              activeTab === 'questions' ? 'border-[#EF3340] text-[#EF3340]' : 'border-transparent text-gray-500 hover:text-gray-800'
+            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+              activeTab === 'questions' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-855'
             }`}
           >
             Questions & Options

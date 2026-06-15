@@ -125,13 +125,13 @@ export default function Header() {
             <>
               <Link
                 href="/admin"
-                className="px-4 py-2 text-sm font-medium text-[#EF3340] hover:text-[#D62B35] hover:bg-red-50 rounded-full transition-colors ml-1"
+                className="px-4 py-2 text-sm font-semibold text-[#EF3340] bg-[#EF3340]/5 hover:bg-[#EF3340]/10 rounded-full transition-all ml-2"
               >
                 Admin Portal
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors ml-1"
+                className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#EF3340] rounded-full transition-all ml-1 cursor-pointer"
               >
                 Logout
               </button>
@@ -139,7 +139,7 @@ export default function Header() {
           ) : (
             <Link
               href="/login"
-              className="px-4 py-2 text-sm font-medium text-[#4B5563] hover:text-[#111827] hover:bg-gray-100 rounded-full transition-colors ml-1"
+              className="px-4 py-2 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:text-[#111827] hover:bg-gray-100 rounded-full transition-all ml-2"
             >
               Login
             </Link>
@@ -209,7 +209,7 @@ export default function Header() {
                 <Link
                   href="/admin"
                   onClick={() => setMobileOpen(false)}
-                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors"
+                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-[#EF3340] bg-[#EF3340]/5 hover:bg-[#EF3340]/10 rounded-xl transition-all"
                 >
                   Admin Portal
                 </Link>
@@ -218,7 +218,7 @@ export default function Header() {
                     handleLogout();
                     setMobileOpen(false);
                   }}
-                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors mt-2"
+                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-gray-500 hover:text-gray-800 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all mt-2"
                 >
                   Logout
                 </button>
@@ -227,7 +227,7 @@ export default function Header() {
               <Link
                 href="/login"
                 onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-4 py-3 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+                className="block w-full text-center px-4 py-3 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:bg-gray-100 rounded-xl transition-all"
               >
                 Login
               </Link>
