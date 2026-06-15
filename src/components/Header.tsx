@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Calculator, Menu, X, Globe, MessageCircle, LayoutGrid, ChevronRight, Star, Building, Baby, Sparkles, Award, FileText, FileSignature, Briefcase, Info, Mail } from 'lucide-react';
+import { Calculator, Menu, X, Globe, MessageCircle, LayoutGrid, ChevronRight, Star, Building, Baby, Sparkles, Award, FileText, FileSignature, Briefcase, Info, Mail, UserPlus, RefreshCw, LogIn, LogOut, User } from 'lucide-react';
 
 const whatsappNumber = '773690993';
 
@@ -68,8 +68,8 @@ export default function Header() {
   };
 
   const navLinks = [
-    { label: 'New Visa', action: () => scrollToSection('pane-new', 'new'), href: '/#pane-new' },
-    { label: 'Renew Visa', action: () => scrollToSection('pane-renew', 'renew'), href: '/#pane-renew' },
+    { label: 'New Visa', icon: <UserPlus size={16} />, action: () => scrollToSection('pane-new', 'new'), href: '/#pane-new' },
+    { label: 'Renew Visa', icon: <RefreshCw size={16} />, action: () => scrollToSection('pane-renew', 'renew'), href: '/#pane-renew' },
   ];
 
   const isHome = pathname === '/';
@@ -77,11 +77,15 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? 'bg-white/80 backdrop-blur-lg border-b border-gray-100/50 shadow-xs'
-          : 'bg-transparent border-b border-transparent'
+          ? 'py-3'
+          : 'py-5'
         }`}
     >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between">
+      <div className={`relative z-45 max-w-[1200px] mx-auto px-4 sm:px-6 h-[64px] flex items-center justify-between transition-all duration-300 ${scrolled
+          ? 'bg-white/70 backdrop-blur-xl border border-white/50 shadow-md rounded-2xl mx-4 lg:mx-auto'
+          : 'bg-transparent border border-transparent rounded-none'
+        }`}
+      >
         {/* Logo & Grid Menu */}
         <div className="flex items-center gap-3 shrink-0">
           <Link href="/" className="flex items-center gap-2 shrink-0">
@@ -119,8 +123,9 @@ export default function Header() {
                   link.action();
                 }
               }}
-              className="px-4 py-2 text-sm font-medium text-[#4B5563] hover:text-[#111827] hover:bg-gray-100 rounded-full transition-colors"
+              className="px-4 py-2 text-sm font-medium text-[#4B5563] hover:text-[#111827] hover:bg-gray-100 rounded-full transition-colors flex items-center gap-1.5"
             >
+              {link.icon}
               {link.label}
             </button>
           ))}
@@ -141,22 +146,25 @@ export default function Header() {
             <>
               <Link
                 href="/admin"
-                className="px-4 py-2 text-sm font-semibold text-[#EF3340] bg-[#EF3340]/5 hover:bg-[#EF3340]/10 rounded-full transition-all ml-2"
+                className="px-4 py-2 text-sm font-semibold text-[#EF3340] bg-[#EF3340]/5 hover:bg-[#EF3340]/10 rounded-full transition-all ml-2 flex items-center gap-1.5"
               >
+                <User size={16} />
                 Admin Portal
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#EF3340] rounded-full transition-all ml-1 cursor-pointer"
+                className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#EF3340] rounded-full transition-all ml-1 cursor-pointer flex items-center gap-1.5"
               >
+                <LogOut size={16} />
                 Logout
               </button>
             </>
           ) : (
             <Link
               href="/login"
-              className="px-4 py-2 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:text-[#111827] hover:bg-gray-100 rounded-full transition-all ml-2"
+              className="px-4 py-2 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:text-[#111827] hover:bg-gray-100 rounded-full transition-all ml-2 flex items-center gap-1.5"
             >
+              <LogIn size={16} />
               Login
             </Link>
           )}
@@ -201,8 +209,9 @@ export default function Header() {
                     setMobileOpen(false);
                   }
                 }}
-                className="block w-full text-left px-4 py-3 text-sm font-medium text-[#4B5563] hover:bg-gray-50 rounded-lg transition-colors"
+                className="w-full text-left px-4 py-3 text-sm font-medium text-[#4B5563] hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-2"
               >
+                {link.icon}
                 {link.label}
               </button>
             ))}
@@ -225,8 +234,9 @@ export default function Header() {
                 <Link
                   href="/admin"
                   onClick={() => setMobileOpen(false)}
-                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-[#EF3340] bg-[#EF3340]/5 hover:bg-[#EF3340]/10 rounded-xl transition-all"
+                  className="w-full px-4 py-3 text-sm font-semibold text-[#EF3340] bg-[#EF3340]/5 hover:bg-[#EF3340]/10 rounded-xl transition-all flex items-center justify-center gap-2"
                 >
+                  <User size={16} />
                   Admin Portal
                 </Link>
                 <button
@@ -234,8 +244,9 @@ export default function Header() {
                     handleLogout();
                     setMobileOpen(false);
                   }}
-                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-gray-500 hover:text-gray-800 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all mt-2"
+                  className="w-full px-4 py-3 text-sm font-semibold text-gray-500 hover:text-gray-800 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all mt-2 flex items-center justify-center gap-2"
                 >
+                  <LogOut size={16} />
                   Logout
                 </button>
               </>
@@ -243,8 +254,9 @@ export default function Header() {
               <Link
                 href="/login"
                 onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-4 py-3 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:bg-gray-100 rounded-xl transition-all"
+                className="w-full px-4 py-3 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:bg-gray-100 rounded-xl transition-all flex items-center justify-center gap-2"
               >
+                <LogIn size={16} />
                 Login
               </Link>
             )}
@@ -252,9 +264,17 @@ export default function Header() {
         </div>
       )}
 
+      {/* Mega Menu Backdrop (Click outside to close) */}
+      {megaMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/10 backdrop-blur-xs z-30 transition-all duration-300"
+          onClick={() => setMegaMenuOpen(false)}
+        />
+      )}
+
       {/* Mega Menu Dropdown */}
       {megaMenuOpen && (
-        <div className="absolute top-[72px] left-0 right-0 bg-white border-t border-gray-100 shadow-2xl z-40 max-h-[calc(100vh-72px)] overflow-y-auto">
+        <div className="fixed top-[84px] left-4 right-4 md:left-auto md:right-auto md:max-w-[1200px] md:w-[calc(100vw-32px)] md:mx-auto bg-white/95 backdrop-blur-xl border border-gray-100/80 shadow-2xl rounded-3xl z-40 max-h-[calc(100vh-100px)] overflow-y-auto inset-x-0 mx-auto">
           <div className="max-w-[1200px] mx-auto px-6 py-8">
             {/* Banner: Visa Cost Calculator */}
             <div 

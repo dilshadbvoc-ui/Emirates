@@ -398,7 +398,7 @@ export default function VisaCalculator({ isOpen, onClose }: Props) {
           exit={{ y: '100%' }}
           transition={{ type: 'spring', stiffness: 350, damping: 35 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full sm:max-w-[500px] sm:rounded-3xl bg-white sm:mx-4 shadow-2xl max-h-[92vh] overflow-hidden rounded-t-3xl flex flex-col"
+          className="relative w-full sm:max-w-[500px] sm:rounded-3xl bg-white/90 backdrop-blur-2xl sm:mx-4 shadow-2xl max-h-[92vh] overflow-hidden rounded-t-3xl flex flex-col border border-white/50"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">

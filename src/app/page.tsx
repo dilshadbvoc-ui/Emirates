@@ -91,7 +91,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-[#FDE8EA] via-[#FFF5F6] to-white py-12 sm:py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-slate-50 via-[#FFF8F9] to-white py-12 sm:py-20 overflow-hidden">
         {/* Ambient Glows */}
         <div className="ambient-glow bg-[#EF3340]/10 w-[350px] h-[350px] -top-10 -left-10" />
         <div className="ambient-glow bg-[#009B3A]/5 w-[300px] h-[300px] bottom-10 -right-10" />
@@ -104,13 +104,13 @@ export default function Home() {
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#EF3340]">Free UAE Family Visa Tool</span>
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#111827] leading-tight mb-4">
-                Know your <span className="text-[#EF3340]">exact</span> family visa cost in under <span className="text-[#EF3340]">30s</span>.
+                Know your <span className="text-gradient-premium">exact</span> family visa cost in under <span className="text-gradient-premium">30s</span>.
               </h1>
               <p className="text-base text-[#4B5563] mb-6 max-w-md">
                 Itemized government fees for a new visa or a renewal — no signup, no phone number, just clear answers.
               </p>
 
-              <button onClick={openCalculator} className="w-full sm:w-auto px-8 py-4 bg-[#EF3340] hover:bg-[#D62B35] text-white rounded-full font-semibold transition-colors shadow-md flex items-center justify-center gap-3 mb-4">
+              <button onClick={openCalculator} className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#EF3340] to-[#B80922] text-white rounded-full font-semibold transition-all shadow-md flex items-center justify-center gap-3 mb-4 shimmer-button hover:shadow-lg hover:-translate-y-0.5">
                 <Calculator size={18} /> Calculate Visa Cost <ArrowRight size={18} />
               </button>
 
@@ -119,7 +119,7 @@ export default function Home() {
                 <span>Free &middot; No signup &middot; Itemized in under 30 seconds</span>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+              <div className="glass-card rounded-2xl p-5 shadow-xs">
                 <FeaturedLogos />
                 <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-3">
                   <GoogleReviews compact />
@@ -185,7 +185,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {eligibilityCards.map((card) => (
               <motion.div key={card.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-6 border border-gray-100 hover-shadow-premium">
+                className="glass-card rounded-2xl p-6 hover-shadow-premium card-hover-lux">
                 <div className="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-[#009B3A] mb-4">{iconMap[card.icon]}</div>
                 <h3 className="text-lg font-semibold text-[#111827] mb-1">{card.title}</h3>
                 <p className="text-sm font-bold text-[#009B3A] mb-2">{card.salary}</p>
@@ -289,7 +289,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl font-bold text-[#111827] mb-10">Do it yourself, or <span className="text-[#EF3340]">we handle it</span>.</h2>
           </motion.div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 hover-shadow-premium">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="glass-card rounded-2xl p-6 sm:p-8 hover-shadow-premium card-hover-lux">
               <h3 className="text-xl font-semibold text-[#111827] mb-1">Path A</h3>
               <h4 className="text-lg font-bold text-[#111827] mb-4">Do it yourself</h4>
               <p className="text-sm text-[#4B5563] mb-6">You pay only the government fees, but you handle everything.</p>
@@ -300,7 +300,7 @@ export default function Home() {
               </ul>
               <a href="https://uaepass.ae/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-[#EF3340] hover:text-[#D62B35] transition-colors">Start with UAE Pass &rarr;</a>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="bg-white rounded-2xl p-6 sm:p-8 border-l-4 border-[#EF3340] hover-shadow-premium relative">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-[#EF3340] hover-shadow-premium card-hover-lux relative shadow-md">
               <div className="absolute top-4 right-4 bg-[#EF3340] text-white text-xs font-semibold px-3 py-1 rounded-full">Recommended</div>
               <h3 className="text-xl font-semibold text-[#111827] mb-1">Path B</h3>
               <h4 className="text-lg font-bold text-[#111827] mb-4">We handle it for you</h4>
