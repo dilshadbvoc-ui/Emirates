@@ -10,12 +10,33 @@ const whatsappNumber = '773690993';
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const pathname = usePathname();
+
+  const checkAuth = async () => {
+    try {
+      const res = await fetch('/api/auth/me');
+      if (res.ok) {
+        const data = await res.json();
+        setIsAuthenticated(data.authenticated);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch {
+      setIsAuthenticated(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    checkAuth();
+    window.addEventListener('auth-change', checkAuth);
+    return () => window.removeEventListener('auth-change', checkAuth);
   }, []);
 
   useEffect(() => {
@@ -89,6 +110,21 @@ export default function Header() {
             <Calculator size={16} />
             Visa Calculator
           </button>
+          {isAuthenticated ? (
+            <Link
+              href="/admin"
+              className="px-4 py-2 text-sm font-medium text-[#EF3340] hover:text-[#D62B35] hover:bg-red-50 rounded-full transition-colors ml-1"
+            >
+              Admin Portal
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="px-4 py-2 text-sm font-medium text-[#4B5563] hover:text-[#111827] hover:bg-gray-100 rounded-full transition-colors ml-1"
+            >
+              Login
+            </Link>
+          )}
         </nav>
 
         {/* Right Actions */}
@@ -149,6 +185,23 @@ export default function Header() {
               <Calculator size={16} />
               Visa Calculator
             </button>
+            {isAuthenticated ? (
+              <Link
+                href="/admin"
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-center px-4 py-3 text-sm font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                Admin Portal
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-center px-4 py-3 text-sm font-semibold text-[#4B5563] bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}
